@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#263d29">
+  <meta name="description" content="Личный дневник еды, движения и отдыха. Отмечайте привычки и смотрите свою неделю.">
+  <title>Дневник привычек — Health Factory</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./journal.css">
+  <script type="module" src="./journal.js"></script>
+</head>
+<body class="journal-page">
+<a class="skip" href="#main">К содержанию</a>
+<header class="masthead shell">
+  <a class="brand" href="./index.html"><span class="sprout" aria-hidden="true"></span>Health Factory</a>
+  <nav aria-label="Основная навигация">
+    <a href="./nutrition.html">Питание</a>
+    <a href="./relationships.html">Секс и отношения</a>
+    <a href="./hobbies.html">Хобби</a>
+    <a href="./running.html">Бег</a>
+    <a class="nav-plan" href="./journal.html" aria-current="page">Дневник <span aria-hidden="true">↗</span></a>
+  </nav>
+</header>
+<main id="main" class="shell journal-main">
+  <div class="journal-intro">
+    <h1>Дневник <em>привычек.</em></h1>
+    <p>Какие блюда и занятия были в вашем дне? Отмечайте то, что хочется запомнить. Отметки сохраняются в этом браузере.</p>
+  </div>
+  <div class="journal-layout">
+    <section class="day-editor" aria-labelledby="day-title">
+      <h2 id="day-title">Мой день</h2>
+      <form id="day-form">
+        <div class="day-fields">
+          <label>Дата <input type="date" name="date" required></label>
+        </div>
+        <fieldset>
+          <legend>Что было сегодня?</legend>
+          <label class="habit"><input type="checkbox" name="habit" value="breakfast"><strong>Завтрак</strong></label>
+          <label class="habit"><input type="checkbox" name="habit" value="lunch"><strong>Обед</strong></label>
+          <label class="habit"><input type="checkbox" name="habit" value="dinner"><strong>Ужин</strong></label>
+          <label class="habit"><input type="checkbox" name="habit" value="snack"><strong>Перекус</strong></label>
+          <label class="habit"><input type="checkbox" name="habit" value="move"><strong>Движение по душе</strong></label>
+          <label class="habit"><input type="checkbox" name="habit" value="hobby"><strong>Время для хобби</strong></label>
+        </fieldset>
+        <button id="delete-day" type="button" hidden>Удалить запись за день</button>
+        <p id="journal-status" role="status" aria-live="polite" aria-atomic="true"></p>
+      </form>
+    </section>
+    <section class="week-panel" aria-labelledby="week-title">
+      <div class="week-header"><h2 id="week-title">Моя неделя</h2>
+        <div class="week-nav"><button type="button" id="prev-week" aria-label="Предыдущая неделя">←</button><button type="button" id="next-week" aria-label="Следующая неделя">→</button></div>
+      </div>
+      <p id="week-range"></p>
+      <div id="week-days" aria-label="Дни выбранной недели" role="group"></div>
+      <p id="week-caption"></p>
+      <ul id="week-counts" aria-label="Отмеченные привычки за неделю"></ul>
+    </section>
+  </div>
+  <noscript><p>Для выбора даты и сохранения отметок включите JavaScript в браузере.</p></noscript>
+</main>
+</body></html>
