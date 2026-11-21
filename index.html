@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#263d29">
+    <meta name="description" content="Health Factory is an independent lifestyle magazine about food, relationships, hobbies, running and things to do.">
+    <title>Health Factory | A lifestyle magazine</title>
+    <link rel="stylesheet" href="./style.css">
+    <script type="module" src="./app.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="masthead shell" id="top">
+      <a class="brand" href="#top" aria-label="Health Factory home"><span class="sprout" aria-hidden="true"></span>Health Factory</a>
+      <nav aria-label="Main navigation">
+        <a href="./nutrition.html">Nutrition</a>
+        <a href="./relationships.html">Sex &amp; Relationships</a>
+        <a href="./hobbies.html">Hobbies</a>
+        <a href="./running.html">Running</a>
+        <a href="./events.html">Events</a>
+        <a class="nav-plan" href="./journal.html">Journal <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+    <main id="main">
+      <section class="hero shell" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="category">Running · The first mile</p>
+          <h1 id="hero-title">Walk first.<br><em>Then run.</em></h1>
+          <p class="intro">One minute of running. Ninety seconds of walking. Inside the opening session of the NHS Couch to 5K plan, and how to pick a route for your first time out.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="./running.html">Read the running guide <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+        <figure class="hero-image">
+          <img src="./images/hero.jpg" alt="A runner in black strides along a red track in Chicago, with the city skyline behind her" fetchpriority="high" width="1250" height="1875">
+        </figure>
+      </section>
+
+      <section class="departments shell" id="sections" aria-labelledby="sections-title">
+        <div class="section-heading"><h2 id="sections-title">More to <em>read</em></h2></div>
+        <div class="department-grid">
+          <a class="department connection" href="./relationships.html">
+            <img src="./images/relationships.jpg" loading="lazy" alt="" width="700" height="520">
+            <div><p class="section-label">Sex &amp; Relationships</p><h3>“Can I ask you something?” How to talk about intimacy</h3><p>A few opening lines for sharing what you want and hearing what your partner has to say.</p></div>
+          </a>
+          <a class="department craft" href="./hobbies.html">
+            <img src="./images/hobbies.jpg" loading="lazy" alt="" width="700" height="520">
+            <div><p class="section-label">Hobbies</p><h3>One cup, three sketches</h3><p>A coffee mug by the window is enough for your first drawing session. Start with the outline, then follow the shadow.</p></div>
+          </a>
+          <a class="department food" href="./nutrition.html">
+            <img src="./images/lunch.jpg" loading="lazy" alt="" width="940" height="1410">
+            <div><p class="section-label">Nutrition</p><h3>What to eat when you're out of ideas</h3><p>A few ways to put the grains, greens and beans you already have to work.</p></div>
+          </a>
+        </div>
+      </section>
+
+      <section class="kitchen shell" id="kitchen" aria-labelledby="kitchen-title">
+        <div class="section-heading">
+          <p class="category">In the kitchen</p>
+          <h2 id="kitchen-title">One menu, <em>four ideas.</em></h2>
+        </div>
+        <div class="recipe">
+          <img src="./images/lunch.jpg" alt="Chickpeas, roasted vegetables, grains and feta on a plate" loading="lazy" width="940" height="1410">
+          <article class="recipe-copy">
+            <h3>A day at the table</h3>
+            <p>Borrow a dish or two and swap in whatever looks good at the market.</p>
+            <dl class="menu-ideas">
+              <div><dt>Breakfast</dt><dd>Simmer oats with apple and cinnamon, then finish with a spoonful of yogurt.</dd></div>
+              <div><dt>Lunch</dt><dd>Toss bulgur with chickpeas, roasted peppers, feta, herbs and a squeeze of lemon.</dd></div>
+              <div><dt>Dinner</dt><dd>Roast potatoes until crisp. Serve with fish or white beans and some shredded cabbage.</dd></div>
+              <div><dt>Snack</dt><dd>Spread cream cheese on toast and top with sliced pear. Add cinnamon if you like.</dd></div>
+            </dl>
+            <a class="text-link" href="./nutrition.html">Explore the nutrition guide <span aria-hidden="true">→</span></a>
+          </article>
+        </div>
+      </section>
+
+      <section class="events shell" id="events" aria-labelledby="events-title">
+        <div><p class="category">Events · December 14 to January 5</p><h2 id="events-title">The winter <em>bird count.</em></h2></div>
+        <div class="events-copy"><p>During Audubon’s Christmas Bird Count, volunteers spend a day recording the birds in one patch of the world. Each local group picks its own date within the winter count period.</p>
+          <a class="text-link" href="./events.html">See the events calendar <span aria-hidden="true">→</span></a>
+          <a class="text-link" href="https://www.audubon.org/community-science/christmas-bird-count">Find a count with Audubon <span aria-hidden="true">↗</span></a>
+        </div>
+      </section>
+
+      <section class="planner shell" id="planner" aria-labelledby="planner-title">
+        <div class="planner-intro">
+          <p class="category">Try it</p>
+          <h2 id="planner-title">Pick a meal <em>and a habit.</em></h2>
+          <p>Choose a pairing to see a meal idea and a small activity. Your selection stays in this browser.</p>
+        </div>
+        <div class="planner-controls">
+          <form id="plan-form">
+            <div class="fields">
+              <label for="meal">Meal
+                <select id="meal" name="meal" required>
+                  <option value="breakfast">Breakfast</option>
+                  <option value="lunch">Lunch</option>
+                  <option value="dinner">Dinner</option>
+                  <option value="snack">Snack</option>
+                </select>
+              </label>
+              <label for="habit">Habit
+                <select id="habit" name="habit" required>
+                  <option value="walk">Take a walk</option>
+                  <option value="break">Take a screen break</option>
+                  <option value="water">Have a glass of water</option>
+                </select>
+              </label>
+            </div>
+            <button class="button mint" type="submit">Show my pairing <span aria-hidden="true">↗</span></button>
+          </form>
+          <div id="plan-result" role="status" aria-live="polite" aria-atomic="true"></div>
+          <button type="button" id="clear-plan" hidden>Clear selection</button>
+          <noscript><p>Enable JavaScript to use the meal and habit picker.</p></noscript>
+        </div>
+      </section>
+    </main>
+    <footer class="footer shell">
+      <a class="brand" href="#top"><span class="sprout" aria-hidden="true"></span>Health Factory</a>
+      <a href="#top">Back to top <span aria-hidden="true">↑</span></a>
+    </footer>
+  </body>
+</html>

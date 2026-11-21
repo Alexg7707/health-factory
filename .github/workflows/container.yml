@@ -1,0 +1,49 @@
+name: Container smoke test
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+
+jobs:
+  container:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the tested static site
+        run: docker build --tag health-factory:test .
+      - name: Run as a non-root user with a read-only root filesystem
+        run: |
+          docker run --detach --name health-factory --read-only \
+            --tmpfs /tmp:rw,nosuid,nodev,size=16m --cap-drop ALL \
+            --security-opt no-new-privileges --publish 127.0.0.1:8080:8080 health-factory:test
+          test "$(docker exec health-factory id -u)" != 0
+      - name: Verify served HTML, module, and photo
+        run: |
+          curl --fail --silent --show-error --retry 8 --retry-connrefused \
+            --retry-delay 1 --max-time 5 http://127.0.0.1:8080/ --output /dev/null
+          python3 - <<'PY'
+          from urllib.request import urlopen
+
+          for route, media, marker in [
+              ("/", "text/html", b"Health Factory"),
+              ("/journal.html", "text/html", b'id="day-form"'),
+              ("/journal.js", "javascript", b"journal-model.js"),
+              ("/images/hero.jpg", "image/jpeg", bytes.fromhex("ffd8ff")),
+          ]:
+              with urlopen("http://127.0.0.1:8080" + route, timeout=5) as response:
+                  body = response.read()
+                  assert response.status == 200, route
+                  assert media in response.headers.get_content_type(), route
+                  assert marker in body, route
+                  print(route, response.status, response.headers.get_content_type(), len(body))
+          PY
+      - name: Print container logs on failure
+        if: failure()
+        run: docker logs health-factory
+      - name: Remove test container
+        if: always()
+        run: docker rm --force health-factory || true

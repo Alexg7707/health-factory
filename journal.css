@@ -1,0 +1,38 @@
+.journal-main { padding-block: clamp(2.2rem, 6vw, 5rem); }
+.journal-intro { margin-bottom: 2.5rem; }
+.journal-intro h1 { max-width: none; font: 500 clamp(3rem, 8vw, 6rem)/1 var(--serif); letter-spacing: -.065em; }
+.journal-intro h1 em { color: var(--olive); font-weight: inherit; }
+.journal-intro p { color: var(--muted); max-width: 53ch; margin-top: 1.1rem; }
+.journal-layout { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: start; gap: clamp(1rem, 3vw, 3rem); }
+.day-editor, .week-panel { padding: clamp(1.15rem,3vw,2.4rem); border-radius: 1.15rem; }
+.day-editor { border: 1px solid var(--rule); background: #fffdf7; }
+.journal-main h2 { font: 500 clamp(1.9rem, 4vw, 3rem)/1.08 var(--serif); letter-spacing: -.045em; }
+.day-fields { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; margin: 1.5rem 0; }
+.day-fields label { display: grid; gap: .3rem; color: var(--muted); font-weight: 600; }
+.day-fields input, .day-fields select { width: 100%; min-width: 0; padding: .6rem .55rem; min-height: 44px; border: 1px solid #75836c; border-radius: .35rem; color: var(--ink); background: white; font: inherit; }
+.day-editor fieldset { padding: 0; margin: 0; min-width: 0; border: 0; }
+.day-editor legend { margin-bottom: .45rem; font-weight: 700; }
+.habit { display: flex; gap: .85rem; align-items: center; border-top: 1px solid var(--rule); padding: .8rem 0; cursor: pointer; }
+.habit input { accent-color: var(--forest); width: 1.35rem; height: 1.35rem; flex-shrink: 0; }
+.habit strong, .habit small { display: block; } .habit small { color: var(--muted); }
+#delete-day { background: transparent; color: var(--ink); border: 0; padding: .65rem 0; text-decoration: underline; cursor: pointer; font: inherit; }
+#journal-status { color: var(--muted); font-size: .9rem; min-height: 1.5em; margin-top: .4rem; }
+.week-panel { background: var(--forest); color: var(--paper); }
+.week-header { display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; justify-content: space-between; }
+.week-nav { display: flex; gap: .4rem; }
+.week-nav button, .week-day { cursor: pointer; color: inherit; background: transparent; border: 1px solid #a2b298; border-radius: .5rem; font: inherit; }
+.week-nav button { min-height: 42px; min-width: 42px; font-size: 1.25rem; }
+#week-range { margin: .8rem 0 1rem; color: #e1e7d2; }
+#week-days { display: grid; grid-template-columns: repeat(7,minmax(0,1fr)); gap: .22rem; }
+.week-day { text-align: center; padding: .5rem .05rem; line-height: 1.25; }
+.week-day small,.week-day strong { display: block; }
+.week-day[aria-pressed="true"] { color: var(--ink); background: var(--lime); border-color: var(--lime); }
+.week-day.has-entry strong { text-decoration: underline; text-underline-offset: .13em; }
+#week-caption { margin-top: 1.2rem; font-size: 1rem; } #week-counts { margin: .8rem 0 0; padding: 0; list-style: none; }
+#week-counts li { display: flex; justify-content: space-between; align-items: baseline; gap: .7rem; padding: .5rem 0; border-top: 1px solid #6f806b; }
+#week-counts strong { color: var(--lime); font-weight: 600; white-space: nowrap; }
+.week-panel :focus-visible { outline: 3px solid #ffdc90; outline-offset: 3px; }
+.journal-main input:focus-visible { outline: 3px solid #a04110; outline-offset: 3px; }
+@media(max-width: 760px) { .journal-layout { grid-template-columns: 1fr; } .journal-intro { margin-bottom: 1.3rem; } }
+@media(max-width: 405px) { .day-fields { grid-template-columns: 1fr; } }
+

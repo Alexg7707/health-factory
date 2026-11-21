@@ -1,0 +1,16 @@
+*
+!package.json
+!package-lock.json
+!tsconfig.json
+!*.html
+!*.css
+!src/
+!src/**
+!test/
+!test/**
+!scripts/
+!scripts/**
+!images/
+!images/**
+!docker/
+!docker/nginx.conf
