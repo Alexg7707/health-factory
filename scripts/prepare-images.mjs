@@ -8,8 +8,8 @@ const images = [
   {"name":"running.jpg","url":"https://images.pexels.com/photos/19708518/pexels-photo-19708518.jpeg?auto=compress&cs=tinysrgb&w=1000&q=82","sha256":"f8e17c3486c93ee8f955cd614a17a2ca26cbb9db9c6c186cf40df0ce90e32852"},
   {
     name: 'hero.jpg',
-    url: 'https://images.pexels.com/photos/20844844/pexels-photo-20844844.jpeg?auto=compress&cs=tinysrgb&w=1250&q=83',
-    sha256: 'ae5612c9f7cc4133a7bd6eddd6f2c862f5adbdaf95c6d51a2e0b4f45ef02dc02',
+    url: 'https://images.pexels.com/photos/29881498/pexels-photo-29881498.jpeg?auto=compress&cs=tinysrgb&w=1250&q=83',
+    sha256: 'd8a1b9af27e123af96c2b12957e0669c1aa4a98de9594f8f1f283e4ca886c4a9',
   },
   {
     name: 'lunch.jpg',
