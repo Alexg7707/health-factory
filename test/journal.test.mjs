@@ -15,6 +15,16 @@ test('weekly counts describe only days and habits actually recorded', () => {
     { entries: 2, counts: { breakfast: 1, lunch: 0, dinner: 0, snack: 0, move: 1, hobby: 2 } });
 });
 
+test('a day saved by the previous edition still contributes to weekly counts', () => {
+  const storage = new Map([['health-factory.journal.v1.2026-11-21', '{"habits":["snack","hobby"]}']]);
+  const journal = new Journal({ getItem: key => storage.get(key) ?? null });
+  const week = weekDates('2026-11-21').map(key => journal.get(key));
+  const { entries, counts } = summarize(week);
+  assert.equal(entries, 1);
+  assert.equal(counts.snack, 1);
+  assert.equal(counts.hobby, 1);
+});
+
 test('each date survives reopening and removing it preserves other entries', () => {
   const map = new Map();
   const storage = { getItem: k => map.get(k), setItem: (k,v) => map.set(k,v), removeItem: k => map.delete(k) };
