@@ -8,7 +8,10 @@ permissions:
   contents: read
 
 jobs:
+  browser:
+    uses: ./.github/workflows/browser.yml
   build:
+    needs: browser
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -20,6 +23,19 @@ jobs:
       - run: npm test
       - run: npm run build
       - run: node scripts/check-site.mjs
+      - uses: actions/download-artifact@v4
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        with:
+          name: magazine-covers
+          path: ${{ runner.temp }}/covers
+      - name: Include desktop and mobile cover previews
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        run: |
+          mkdir -p public/previews
+          for size in desktop mobile; do
+            preview=$(find "$RUNNER_TEMP/covers" -type f -name "$size-cover.png" -print -quit)
+            cp "$preview" "public/previews/$size.png"
+          done
       - uses: actions/upload-pages-artifact@v3
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         with:
