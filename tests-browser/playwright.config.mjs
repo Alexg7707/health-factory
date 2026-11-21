@@ -5,13 +5,9 @@ export default defineConfig({
   outputDir: '../test-results/browser',
   workers: 2,
   forbidOnly: !!process.env.CI,
+  globalSetup: './serve.mjs',
   use: {
-    baseURL: 'http://127.0.0.1:4189',
     launchOptions: { executablePath: process.env.PLAYWRIGHT_EXECUTABLE_PATH },
     timezoneId: 'UTC',
-  },
-  webServer: {
-    command: 'node serve.mjs',
-    url: 'http://127.0.0.1:4189',
   },
 });
