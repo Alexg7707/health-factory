@@ -15,7 +15,7 @@ try {
 
 function showPlan(plan: Plan, deviceSaved: boolean) {
   const title = document.createElement('strong');
-  title.textContent = 'Ваш план';
+  title.textContent = 'Your meal and habit';
   const paragraphs = describePlan(plan).map(text => {
     const paragraph = document.createElement('p');
     paragraph.textContent = text;
@@ -24,7 +24,7 @@ function showPlan(plan: Plan, deviceSaved: boolean) {
   result.replaceChildren(title, ...paragraphs);
   if (!deviceSaved) {
     const note = document.createElement('small');
-    note.textContent = 'Хранилище браузера недоступно. План открыт только в этой вкладке.';
+    note.textContent = 'Browser storage is unavailable. Your selection lasts until you leave this page.';
     result.append(note);
   }
   clear.hidden = false;
@@ -41,7 +41,7 @@ form.addEventListener('submit', event => {
   event.preventDefault();
   const plan = { meal: meal.value, habit: habit.value };
   if (!isPlan(plan)) {
-    result.textContent = 'Выберите приём пищи и привычку из списка.';
+    result.textContent = 'Choose a meal and a habit from the lists.';
     return;
   }
   showPlan(plan, storePlan(storage, plan));
@@ -51,6 +51,6 @@ clear.addEventListener('click', () => {
   const removed = storePlan(storage, null);
   form.reset();
   clear.hidden = true;
-  result.textContent = removed ? 'План очищен.' : 'План очищен в этой вкладке. Проверьте настройки хранилища браузера.';
+  result.textContent = removed ? 'Selection cleared.' : 'Selection cleared from this page. Browser storage is unavailable.';
   meal.focus();
 });
