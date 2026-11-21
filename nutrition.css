@@ -1,0 +1,67 @@
+.masthead [aria-current="page"] {
+  text-decoration: underline;
+  text-underline-offset: .35em;
+}
+
+.guide-lead {
+  display: grid;
+  grid-template-columns: 1.25fr .75fr;
+  gap: clamp(2rem, 8vw, 8rem);
+  align-items: center;
+  padding-block: clamp(2.5rem, 6vw, 6rem);
+}
+
+.guide-lead h1 { max-width: 9ch; }
+.guide-intro { max-width: 38ch; color: var(--muted); font-size: clamp(1.08rem, 1.7vw, 1.4rem); }
+.guide-lead figure { overflow: hidden; border-radius: 3px 54px 3px 3px; }
+.guide-lead img { height: clamp(260px, 30vw, 420px); object-fit: cover; object-position: center 46%; }
+.guide-menu { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1.75rem; }
+.guide-menu a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  border: 1px solid var(--olive);
+  border-radius: 2rem;
+  padding-inline: 1rem;
+  color: var(--forest);
+  text-decoration: none;
+}
+.guide-menu a:hover { background: var(--lime); }
+
+.guide-section {
+  display: grid;
+  grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+  gap: clamp(2rem, 6vw, 7rem);
+  border-top: 1px solid var(--rule);
+  padding-block: clamp(2.5rem, 6vw, 5rem);
+}
+.guide-section h2 { max-width: 12ch; }
+.guide-body { max-width: 63ch; }
+.guide-body p { font-size: 1.08rem; line-height: 1.65; }
+.guide-body h3:first-child { margin-top: 0; }
+.guide-body p + p { margin-top: 1.1rem; }
+.guide-body h3 { margin-block: 1.5rem .5rem; font-size: clamp(1.5rem, 2.4vw, 2rem); }
+.guide-note { margin: 1.5rem 0 0; padding: 1.15rem 1.25rem; border-left: 3px solid var(--olive); background: #eef0de; }
+.guide-note p { font-size: 1rem; }
+.guide-source, .guide-note a { display: block; margin-top: .45rem; font-size: .92rem; color: var(--forest); text-underline-offset: 3px; }
+.guide-journal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: clamp(1.4rem, 4vw, 3rem);
+  background: #e7eccf;
+  border-radius: 3px 3px 36px 3px;
+}
+.guide-journal h2 { margin: 0; font-size: clamp(2rem, 3.7vw, 3.5rem); }
+.guide-journal p { max-width: 48ch; margin-top: .7rem; }
+.guide-journal .button { flex: none; }
+
+@media (max-width: 690px) {
+  .guide-lead, .guide-section { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
+  .guide-lead h1, .guide-section h2 { max-width: none; }
+  .guide-lead img { height: clamp(185px, 58vw, 300px); }
+  .guide-menu { gap: .5rem; }
+  .guide-menu a { padding-inline: .75rem; }
+  .guide-journal { flex-direction: column; align-items: flex-start; }
+}
