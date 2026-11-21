@@ -39,7 +39,15 @@ test('reopening restores the latest choice and clearing removes only the plan', 
   assert.equal(storage.getItem('other-site-data'), 'keep');
 });
 
-test('invalid or old stored choices are ignored', () => {
+test('a choice saved by the previous edition shows the current recipe and habit', () => {
+  const storage = memoryStorage();
+  storage.setItem('health-factory.plan.v1', '{"meal":"snack","habit":"water"}');
+  const [recipe, habit] = describePlan(readPlan(storage));
+  assert.match(recipe, /apple wedges/);
+  assert.match(habit, /a glass of water/);
+});
+
+test('invalid stored choices are ignored', () => {
   const storage = memoryStorage();
   for (const invalid of ['{', 'null', '42', '{}', '{"meal":"lunch","habit":"constructor"}', '{"meal":"__proto__","habit":"walk"}']) {
     storage.setItem(storageKey, invalid);
@@ -53,6 +61,6 @@ test('a blocked or full storage does not prevent generating a plan', () => {
     assert.equal(readPlan(storage), undefined);
     assert.equal(storePlan(storage, { meal: 'lunch', habit: 'walk' }), false);
     assert.equal(storePlan(storage, null), false);
-    assert.match(describePlan({ meal: 'lunch', habit: 'walk' })[0], /Обед/);
+    assert.match(describePlan({ meal: 'lunch', habit: 'walk' })[0], /buckwheat/);
   }
 });
