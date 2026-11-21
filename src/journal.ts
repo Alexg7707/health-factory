@@ -7,9 +7,16 @@ const remove = document.querySelector<HTMLButtonElement>('#delete-day')!;
 const status = document.querySelector<HTMLElement>('#journal-status')!;
 const daysPanel = document.querySelector<HTMLElement>('#week-days')!;
 const countList = document.querySelector<HTMLElement>('#week-counts')!;
-const shortDay = new Intl.DateTimeFormat('ru', { weekday: 'short', timeZone: 'UTC' });
-const fullDay = new Intl.DateTimeFormat('ru', { dateStyle: 'long', timeZone: 'UTC' });
-const names: Record<Habit, string> = { breakfast: 'Завтрак', lunch: 'Обед', dinner: 'Ужин', snack: 'Перекус', move: 'Движение', hobby: 'Хобби' };
+const shortDay = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'UTC' });
+const fullDay = new Intl.DateTimeFormat('en-US', { dateStyle: 'long', timeZone: 'UTC' });
+const names: Record<Habit, string> = {
+  breakfast: 'Breakfast',
+  lunch: 'Lunch',
+  dinner: 'Dinner',
+  snack: 'Snack',
+  move: 'Movement',
+  hobby: 'Hobby time',
+};
 let storage: Storage | undefined;
 try { storage = window.localStorage; } catch { /* Private browsing can restrict storage. */ }
 const journal = new Journal(storage);
@@ -24,14 +31,16 @@ function render() {
   const entries = dates.map(key => journal.get(key));
   const summary = summarize(entries);
   const label = (key: string) => fullDay.format(new Date(key + 'T12:00:00Z'));
-  document.querySelector('#week-range')!.textContent = label(dates[0]!) + ' — ' + label(dates[6]!);
+  document.querySelector('#week-range')!.textContent = fullDay.formatRange(
+    new Date(dates[0]! + 'T12:00:00Z'), new Date(dates[6]! + 'T12:00:00Z')
+  );
   daysPanel.replaceChildren(...dates.map((key, index) => {
     const button = document.createElement('button');
     button.type = 'button';
     button.dataset.date = key;
     button.className = entries[index] ? 'week-day has-entry' : 'week-day';
     button.setAttribute('aria-pressed', String(key === selected));
-    button.setAttribute('aria-label', label(key) + (entries[index] ? ', есть запись' : ', без записи'));
+    button.setAttribute('aria-label', label(key) + (entries[index] ? ', entry saved' : ', no entry'));
     const weekday = document.createElement('small');
     weekday.textContent = shortDay.format(new Date(key + 'T12:00:00Z'));
     const number = document.createElement('strong');
@@ -40,7 +49,9 @@ function render() {
     return button;
   }));
   const caption = document.querySelector('#week-caption')!;
-  caption.textContent = summary.entries ? `Дней с записью: ${summary.entries} из 7.` : 'Пока нет записей за эту неделю. Выберите день и добавьте отметку.';
+  caption.textContent = summary.entries
+    ? `${summary.entries} of 7 days ${summary.entries === 1 ? 'has' : 'have'} an entry.`
+    : 'No entries this week. Choose a day and check an item to start.';
   countList.replaceChildren(...habits.map(habit => {
     const item = document.createElement('li');
     const total = document.createElement('strong');
@@ -60,7 +71,7 @@ function selectDay(key: string) {
 form.addEventListener('submit', event => event.preventDefault());
 date.addEventListener('change', () => {
   if (validDate(date.value)) selectDay(date.value);
-  else { date.value = selected; status.textContent = 'Выберите существующую дату.'; }
+  else { date.value = selected; status.textContent = 'Choose a valid date.'; }
 });
 
 form.addEventListener('change', event => {
@@ -69,13 +80,13 @@ form.addEventListener('change', event => {
   if (!isDay(day)) return;
   const persisted = journal.set(selected, day.habits.length ? day : null);
   render();
-  status.textContent = persisted ? 'Сохранено в этом браузере.' : 'Изменения доступны в этой вкладке. Хранилище браузера недоступно.';
+  status.textContent = persisted ? 'Saved in this browser.' : 'Browser storage is unavailable. Your changes last until you leave this page.';
 });
 
 remove.addEventListener('click', () => {
   const persisted = journal.set(selected, null);
   render();
-  status.textContent = persisted ? 'Запись за этот день удалена.' : 'Запись скрыта в этой вкладке. Хранилище браузера недоступно.';
+  status.textContent = persisted ? 'Entry deleted.' : 'Entry cleared from this page. Browser storage is unavailable.';
   date.focus();
 });
 
