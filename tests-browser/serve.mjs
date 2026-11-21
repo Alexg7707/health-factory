@@ -1,4 +1,5 @@
 import { readFile } from 'node:fs/promises';
+import { once } from 'node:events';
 import { createServer } from 'node:http';
 import { extname, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -6,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 const publicRoot = fileURLToPath(new URL('../public', import.meta.url));
 const types = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.jpg': 'image/jpeg' };
 
-createServer(async (request, response) => {
+async function serveFile(request, response) {
   try {
     const { pathname } = new URL(request.url, 'http://127.0.0.1');
     const file = resolve(publicRoot, '.' + (pathname === '/' ? '/index.html' : decodeURIComponent(pathname)));
@@ -19,4 +20,15 @@ createServer(async (request, response) => {
   } catch {
     response.writeHead(404).end();
   }
-}).listen(4189, '127.0.0.1');
+}
+
+export default async function startPreview() {
+  const server = createServer(serveFile);
+  server.listen(0, '127.0.0.1');
+  await once(server, 'listening');
+  process.env.HEALTH_FACTORY_TEST_URL = 'http://127.0.0.1:' + server.address().port;
+  return async () => {
+    server.close();
+    await once(server, 'close');
+  };
+}
