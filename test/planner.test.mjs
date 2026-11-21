@@ -14,7 +14,7 @@ function memoryStorage() {
 test('each combination includes a distinct meal and habit', () => {
   const meals = new Set();
   const habits = new Set();
-  for (const meal of ['breakfast', 'lunch', 'dinner']) {
+  for (const meal of ['breakfast', 'lunch', 'dinner', 'snack']) {
     for (const habit of ['walk', 'break', 'water']) {
       assert.ok(isPlan({ meal, habit }));
       const [recipe, suggestion] = describePlan({ meal, habit });
@@ -23,7 +23,7 @@ test('each combination includes a distinct meal and habit', () => {
       assert.ok(recipe.length && suggestion.length);
     }
   }
-  assert.equal(meals.size, 3);
+  assert.equal(meals.size, 4);
   assert.equal(habits.size, 3);
 });
 
